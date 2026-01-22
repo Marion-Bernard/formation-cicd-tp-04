@@ -421,7 +421,7 @@ datasources:
     editable: true
 ```
 
-#### 2.5 Démarrer Prometheus et Grafana
+#### 2.3 bis : si pas de docker : Démarrer Prometheus et Grafana
 
 ```bash
 # MAINTENANT démarrer Prometheus et Grafana
@@ -449,7 +449,7 @@ python monitoring/prometheus_exporter.py
 # Aller sur http://localhost:9090/targets
 ```
 
-#### 2.4 Installer Prometheus sur Windows
+#### 2.3 ter : si pas de docker : Installer Prometheus sur Windows
 
 Étape 1 : Télécharger Prometheus
 - Aller sur : https://prometheus.io/download/
@@ -765,8 +765,36 @@ Créez deux étapes pour uploader les rapports (avec `if: always()`) :
 
 **Indice** : Consultez la [documentation upload-artifact](https://github.com/actions/upload-artifact) pour la syntaxe exacte.
 
+#### 5.7.1 Créer le .gitignore
 
-#### 5.7 Après avoir créé votre workflow, validez-le :
+**`.gitignore` :**
+```
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Allure
+allure-report/
+allure-results/
+reports/*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+```
+
+
+#### 5.7.2 Après avoir créé votre workflow, validez-le :
 
 ```bash
 # Pousser sur GitHub pour tester
@@ -780,6 +808,14 @@ git push
 2. Vous devriez voir votre workflow s'exécuter
 3. Consultez les logs pour détecter d'éventuelles erreurs
 4. Vérifiez que les tests s'exécutent et que les rapports Allure sont générés
+
+** Vérifier le rapport Allure ** 
+1.Allez dans l'onglet "Actions" de votre dépôt
+2. Cliquer sur le workflow en questions
+3. Dans la partie Artifacts : télécharger `allure-report` et `allure-results`
+4. Dans powershell : `cd allure-report` puis `python -m http.server 8000` (ou `allure serve reports` si allure CLI est installé). 
+5. Allez sur la page pour voir le rapport
+
 
 ---
 
@@ -818,33 +854,6 @@ git push
 
 ---
 
-#### 5.9 Créer le .gitignore
-
-**`.gitignore` :**
-```
-# Python
-venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-
-# Allure
-allure-report/
-allure-results/
-reports/*.json
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-```
 
 
 ---
