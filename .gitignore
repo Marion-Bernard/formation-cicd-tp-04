@@ -1,0 +1,17 @@
+# Allure
+reports/
+allure-report/
+allure-results/
+.allure/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Prometheus / monitoring
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
